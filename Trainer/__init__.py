@@ -1,1 +1,1 @@
-from Trainer.DataTrainer import DataTrainer
+from .DataTrainer import DataTrainer

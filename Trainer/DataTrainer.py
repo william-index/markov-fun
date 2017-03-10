@@ -10,5 +10,14 @@ class DataTrainer(object):
     """
     def sample(self, bat):
         print("Called sample method")
+        myfile = open('data/training/william-blog-training-raw.txt', 'r')
+        data = myfile.read()
+        myfile.close()
+
+        newfile = open('data/processed/sample.txt', 'w')
+        newfile.write(data)
+        newfile.close()
+
+        print(data)
 
         return self.foo + bat
