@@ -1,10 +1,17 @@
 from Trainer import DataTrainer
+from Stepper import Stepper
 
 trainer = DataTrainer()
+stepper = Stepper()
 
 x = trainer.train_text_data(
         filename = "data/training/william-blog-training-raw.txt",
-        order = 1
+        order = 2
         )
 
-print(x)
+phrase = stepper.new_phrase(
+            model = x,
+            eol = 'EOL',
+            punc = ['!', '.', '?'])
+
+print(phrase)

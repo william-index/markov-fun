@@ -16,13 +16,7 @@ class DataTrainer(object):
         raw_data = self.get_raw_file_data(filename)
         cleaned_text = self.strip_special_chars(raw_data)
         data = self.crawl_clean_text(text=cleaned_text, order=order)
-        probabilities = self.probabilitize_data(data)
 
-        return probabilities
-
-
-    def probabilitize_data(self, data):
-        # @TODO pase lists for keys into dicts of keys and percentages
         return data
 
     """
@@ -52,7 +46,7 @@ class DataTrainer(object):
     """
     def strip_special_chars(self, data):
         cleaned_text = re.sub('!|\.|\?', ' EOL ', data)
-        cleaned_text = re.sub('[^A-Za-z0-9\s]+', ' ', cleaned_text)
+        cleaned_text = re.sub('[^A-Za-z0-9\s\']+', ' ', cleaned_text)
         cleaned_text = re.sub( '\s+', ' ', cleaned_text).strip()
         return cleaned_text
 
@@ -81,12 +75,3 @@ class DataTrainer(object):
             tree[key].append(text_seq[i + order])
 
         return tree
-
-    """
-    @TODO saves trained data to file in re-readable format
-    """
-    def save_data_to_file(self):
-        # newfile = open('data/processed/sample.txt', 'w')
-        # newfile.write(data)
-        # newfile.close()
-        pass
