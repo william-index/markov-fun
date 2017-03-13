@@ -21,6 +21,8 @@ class DataTrainer(object):
 
     """
     Reads a text file and returns its raw data.
+    This exists within this class instead of abstracted out mostly so
+    @william-index can mock it in tests as he learns python haha.
 
     Args:
         filename (string) : path to file from project root

@@ -15,6 +15,7 @@ class Stepper(object):
         string: A complete phrase constructed from the model
     """
     def new_phrase(self, model, eol, punc):
+        # all random bits are best done as functions so I can mock them
         start_key = random.choice(list(model.keys()))
         phrase = start_key
 
