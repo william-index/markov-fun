@@ -74,6 +74,7 @@ class DataTrainer(object):
 
             if not key in tree:
                 tree[key] = []
+                
             tree[key].append(text_seq[i + order])
 
         return tree

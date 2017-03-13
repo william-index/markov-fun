@@ -9,11 +9,14 @@ class TestDataTrainer(unittest.TestCase):
         super(TestDataTrainer, self).setUp() #calls setUp on parent
 
         self.trainer  = DataTrainer()
+
         self.sample_data = """
             Some, sentences "end—with". (Some sentences) might end with!
             But we don't know, other sentences might end with?
         """
+
         self.stripped_data = "Some sentences end with EOL Some sentences might end with EOL But we don't know other sentences might end with EOL"
+
         self.expected_tree = {
                     'Some sentences': ['end', 'might'],
                     'sentences end': ['with'],

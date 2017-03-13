@@ -5,7 +5,7 @@ trainer = DataTrainer()
 stepper = Stepper()
 
 x = trainer.train_text_data(
-        filename = "data/training/william-blog-training-raw.txt",
+        filename = "data/training/wikipedia_cassettes.txt",
         order = 2
         )
 
