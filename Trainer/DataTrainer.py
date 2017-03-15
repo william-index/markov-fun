@@ -12,29 +12,11 @@ class DataTrainer(object):
     Returns:
         Dict: trained markov model
     """
-    def train_text_data(self, filename, order):
-        raw_data = self.get_raw_file_data(filename)
-        cleaned_text = self.strip_special_chars(raw_data)
+    def train_text_data(self, raw_text, order):
+        cleaned_text = self.strip_special_chars(raw_text)
         data = self.crawl_clean_text(text=cleaned_text, order=order)
 
         return data
-
-    """
-    Reads a text file and returns its raw data.
-    This exists within this class instead of abstracted out mostly so
-    @william-index can mock it in tests as he learns python haha.
-
-    Args:
-        filename (string) : path to file from project root
-    Returns:
-        string: contents of file
-    """
-    def get_raw_file_data(self, filename):
-        raw_file = open(filename, 'r')
-        raw_data = raw_file.read()
-        raw_file.close()
-
-        return raw_data
 
     """
     Strips out special characters except select punctuation and indicates EOL in
@@ -48,7 +30,7 @@ class DataTrainer(object):
     """
     def strip_special_chars(self, data):
         cleaned_text = re.sub('!|\.|\?', ' EOL ', data)
-        cleaned_text = re.sub('[^A-Za-z0-9\s\']+', ' ', cleaned_text)
+        cleaned_text = re.sub('[^A-Za-z0-9\s\'-]+', ' ', cleaned_text)
         cleaned_text = re.sub( '\s+', ' ', cleaned_text).strip()
         return cleaned_text
 
@@ -74,7 +56,7 @@ class DataTrainer(object):
 
             if not key in tree:
                 tree[key] = []
-                
+
             tree[key].append(text_seq[i + order])
 
         return tree

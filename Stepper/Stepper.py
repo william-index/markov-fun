@@ -30,6 +30,33 @@ class Stepper(object):
 
         return self.sentencize_phrase(phrase, eol, punc)
 
+
+    """
+    Creates a new sequence for a given model for a set number of steps.
+
+    Args:
+        model (Dict): trained markov model with expanded option lists
+        steps (int): the number of steps to take
+    Return:
+        string: A complete sequence constructed from the model
+    """
+    def new_set_length_sequence(self, model, steps):
+        start_key = random.choice(list(model.keys()))
+        sequence = start_key
+
+        prev_tokens = start_key.split()
+        order = len(prev_tokens)
+        next_token = ''
+        for i in range(0, steps - order):
+            next_token = self.step(model, ' '.join(prev_tokens))
+            prev_tokens.pop(0)
+            prev_tokens.append(next_token)
+
+            sequence += ' ' + next_token
+
+        return sequence
+
+
     """
     Prettifies the phrase.
 
