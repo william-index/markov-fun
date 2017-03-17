@@ -2,3 +2,4 @@
 __pycache__
 venv
 data/training/images/raw/
+data/training/images/cropped_and_reduced/

@@ -15,11 +15,15 @@ class ImageScraper(object):
         if not os.path.exists(file_path):
             os.makedirs(file_path)
 
+        saved_images = []
         for i, url in enumerate(img_urls):
             img_name = url.split('/')[-1]
-            r = urllib.request.urlretrieve(url, "{file_path}/{filename}-{i}.jpg".format(file_path=file_path, filename=safe_name, i=i))
-            print(r)
-        print(img_urls)
+            full_image_path =  "{file_path}/{filename}-{i}.jpg".format(file_path=file_path, filename=safe_name, i=i)
+            r = urllib.request.urlretrieve(url, full_image_path)
+
+            saved_images.append(full_image_path)
+
+        return saved_images
 
     def fetch_img_urls(self, phrase, n):
         startIndex = 0
