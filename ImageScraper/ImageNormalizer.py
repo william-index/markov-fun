@@ -3,7 +3,7 @@ from PIL import Image
 
 @attr.s
 class ImageNormalizer(object):
-    def standardize(self, image_path, width, height):
+    def standardize(self, image_path, width, height, cRange):
         canvas = (width, height)
         scene = Image.new('RGB', canvas, (100,100,100))
 
@@ -15,12 +15,25 @@ class ImageNormalizer(object):
         image= image.resize(resize_size, Image.ANTIALIAS)
         scene.paste(image, offsets_to_center)
 
+        scene = self.reduce_colors_to_range(scene, cRange)
+
         save_file = image_path.replace('data/training/images/raw/', 'data/training/images/cropped_and_reduced/')
         save_path = '/'.join(save_file.split('/')[0:-1])
         if not os.path.exists(save_path):
             os.makedirs(save_path)
 
         scene.save(save_file)
+
+    def reduce_colors_to_range(self, scene, cRange):
+        pix = scene.load()
+        w, h = scene.size
+        for y in range(0, h):
+            for x in range(0, w):
+                r, g, b = scene.getpixel((x, y))
+
+                r, g, b = [int((int((c/255)*cRange)/cRange)*255) for c in scene.getpixel((x, y))]
+                pix[x, y] = (r, g, b)
+        return scene
 
     def get_offset_to_center(self, size, canvas_size):
         w, h = size

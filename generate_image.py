@@ -8,7 +8,7 @@ stepper = Stepper()
 img_sequencer = ImageSequencer()
 
 image_set = []
-phrase = "dia_de_los_meurtos"
+phrase = "nightmare"
 for i in range(0, 20):
     image_set.append('{phrase}/{phrase}-{i}.jpg'.format(phrase=phrase, i=i))
 
@@ -23,7 +23,7 @@ concat_text.strip()
 
 trained_data = trainer.train_text_data(
         raw_text = concat_text,
-        order = 2,
+        order = 30,
         )
 
 gen_seq = stepper.new_set_length_sequence(
