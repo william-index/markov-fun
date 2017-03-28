@@ -32,12 +32,13 @@ An image can be generated from any set of images within a directory
 
 by calling
 ```
-python generate_image.py '<string>' --size <int> <int> --norder <int>
+python generate_image.py '<string>' --size <int> <int> --norder <int> --pickle <bool>
 ```
 
 * **<string>** - path to image directory
 * **size** - 2 ints for width and height respectively that represent the size of all images in the set
 * **norder** - what order markov chain to use
+* **?pickler** - optional takes true/false bool value for whether to load/generate pickle data for set
 
 
 #### Stepper
