@@ -25,20 +25,24 @@ except:
 
 pickle_file_name = "{width}-{height}-{norder}.pickle".format(width=im_width, height=im_height, norder=norder)
 pickled_data = {}
+preexisting_pickle = False
 
 #  checks for and loads pickle
 if should_pickle:
     print('checking for pickle..')
 
     has_pickle = os.path.isfile(directory + pickle_file_name)
-    print(has_pickle)
     if has_pickle:
+        print('Loading Pickled Data...')
         with open(directory + pickle_file_name, 'rb') as pickle_file:
             pickled_data = pickle.load(pickle_file)
 
 if pickled_data:
+    print('Pickled data set')
     trained_data = pickled_data
+    preexisting_pickle = True
 else:
+    print('Training based on image set...')
     image_set = []
     for fn in os.listdir(directory):
         if fn[0] != '.' and fn[-7:] !=".pickle":
@@ -59,16 +63,19 @@ else:
             )
 
 # saves pickeled data
-if should_pickle:
+if should_pickle and preexisting_pickle == False:
+    print('Pickling data for later use...')
     with open(directory + pickle_file_name, 'wb+') as pickle_file:
         pickle.dump(trained_data, pickle_file)
         pickle_file.close()
 
+print('Stepping Image Sequence...')
 gen_seq = stepper.new_set_length_sequence(
         model = trained_data,
         steps = im_width * im_height
         )
 
+print('Generating Image...')
 image = img_sequencer.convert_text_to_image(gen_seq, im_width, im_height)
 
 image.save("data/processed/images/sample.png")
