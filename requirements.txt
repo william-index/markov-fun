@@ -9,4 +9,4 @@ Pillow==4.0.0
 python-dateutil==2.6.0
 pytz==2016.10
 six==1.10.0
-wheel==0.24.0
+wheel==0.38.1
